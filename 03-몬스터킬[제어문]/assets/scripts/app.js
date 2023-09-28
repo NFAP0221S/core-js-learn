@@ -20,10 +20,12 @@ function attackHandler() {
     const playerDamage = dealPlayerDamage(MONSTER_ATTAK_VALUE);
     currentPlayerHealth -= playerDamage;
 
-    if (currentMonsterHealth <= 0) {
+    if (currentMonsterHealth <= 0 && currentPlayerHealth > 0) {
         alert('승리!');
-    } else if (currentPlayerHealth <= 0) {
+    } else if (currentPlayerHealth <= 0 && currentMonsterHealth > 0) {
         alert('패배ㅠ');
+    } else if (currentPlayerHealth <= 0 && currentMonsterHealth <= 0) {
+        alert('무승부..')
     }
 }
 
