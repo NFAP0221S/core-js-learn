@@ -13,22 +13,33 @@ let chosenMaxLife = 100;
 let currentMonsterHealth = chosenMaxLife;
 // 현재 플레이어 체력
 let currentPlayerHealth = chosenMaxLife;
+// 보너스 생명
+let hasBounsLife = true;
 
 // 유저 체력 바
-adjustHealthBars(chosenMaxLife)
+adjustHealthBars(chosenMaxLife);
 
 
 // 몬스터 공격 셋업
 function endRound() {
+    const initialPlayerHealth = currentPlayerHealth;
     const playerDamage = dealPlayerDamage(MONSTER_ATTAK_VALUE);
     currentPlayerHealth -= playerDamage;
+
+    if (currentPlayerHealth <= 0 && hasBounsLife) {
+        hasBounsLife = false;
+        removeBonusLife();
+        currentPlayerHealth = initialPlayerHealth;
+        setPlayerHealth(initialPlayerHealth);
+        alert('당신은 보너스 생명이 있습니다!');
+    }
 
     if (currentMonsterHealth <= 0 && currentPlayerHealth > 0) {
         alert('승리!');
     } else if (currentPlayerHealth <= 0 && currentMonsterHealth > 0) {
         alert('패배ㅠ');
     } else if (currentPlayerHealth <= 0 && currentMonsterHealth <= 0) {
-        alert('무승부..')
+        alert('무승부..');
     }
 }
 
@@ -62,7 +73,7 @@ function healPlayerHandler() {
 
     // 현재 체력이 (MaxLife - 힐) 보다 같거나 크면
     if (currentPlayerHealth >= chosenMaxLife - HEAL_VAlUE) {
-        alert('체력을 회복할 수 없습니다.')
+        alert('체력을 회복할 수 없습니다.');
         healValue = chosenMaxLife - currentPlayerHealth;
     } else {
         healValue = HEAL_VAlUE;
@@ -75,6 +86,6 @@ function healPlayerHandler() {
 }
 
 
-attackBtn.addEventListener('click', attackHandler);
-strongAttackBtn.addEventListener('click', strongClickHandler);
-healBtn.addEventListener('click', healPlayerHandler);
+attackBtn.addEventListener('click', attackHandler); // 기본 공격 실행
+strongAttackBtn.addEventListener('click', strongClickHandler); // 강한 공격 실행
+healBtn.addEventListener('click', healPlayerHandler); // 힐 실행
