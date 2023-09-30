@@ -6,6 +6,10 @@ const STRONG_ATTAK_VALUE = 17;
 const MONSTER_ATTAK_VALUE = 14;
 // 체력 회복 값
 const HEAL_VAlUE = 20;
+
+const MODE_ATTACK = 'ATTACK'; // MODE_ATTACK = 0
+const MODE_STORNG_ATTACK = 'STRONG_ATTACK'; // MODE_STORNG_ATTACK = 1
+
 // 초기 체력 입력 값
 const enteredValue = prompt('몬스터와 유저의 최대 채력을 설정합니다.', '100')
 
@@ -63,9 +67,9 @@ function endRound() {
 // 기본 공격 셋업
 function attackMonster(mode) {
     let maxDamage;
-    if (mode === 'ATTACK') {
+    if (mode === MODE_ATTACK) {
         maxDamage = ATTAK_VALUE;
-    } else if (mode === 'STRONG_ATTACK') {
+    } else if (mode === MODE_STORNG_ATTACK) {
         maxDamage = STRONG_ATTAK_VALUE;
     }
 
@@ -78,11 +82,11 @@ function attackMonster(mode) {
 
 // 기본 공격
 function attackHandler() {
-    attackMonster('ATTACK');
+    attackMonster(MODE_ATTACK);
 }
 // 강한 공격
 function strongClickHandler() {
-    attackMonster('STRONG_ATTACK');
+    attackMonster(STRONG_ATTAK_VALUE);
 }
 // 회복
 function healPlayerHandler() {
