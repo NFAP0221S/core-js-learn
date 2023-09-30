@@ -19,6 +19,11 @@ let hasBounsLife = true;
 // 유저 체력 바
 adjustHealthBars(chosenMaxLife);
 
+function reset() {
+    currentMonsterHealth = chosenMaxLife;
+    currentPlayerHealth = chosenMaxLife;
+    resetGame(chosenMaxLife);
+}
 
 // 몬스터 공격 셋업
 function endRound() {
@@ -40,6 +45,10 @@ function endRound() {
         alert('패배ㅠ');
     } else if (currentPlayerHealth <= 0 && currentMonsterHealth <= 0) {
         alert('무승부..');
+    }
+
+    if (currentPlayerHealth <= 0 || currentMonsterHealth <= 0) {
+        reset();
     }
 }
 
