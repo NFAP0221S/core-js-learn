@@ -142,15 +142,18 @@ function endRound() {
 
 // 기본 공격 셋업
 function attackMonster(mode) {
-    let maxDamage;
-    let logEvent;
-    if (mode === MODE_ATTACK) {
-        maxDamage = ATTACK_VALUE;
-        logEvent = LOG_EVENT_PLAYER_ATTACK
-    } else if (mode === MODE_STORNG_ATTACK) {
-        maxDamage = STRONG_ATTACK_VALUE;
-        logEvent = LOG_EVENT_PLAYER_STRONG_ATTACK
-    }
+    let maxDamage = mode === MODE_ATTACK ? ATTACK_VALUE : STRONG_ATTACK_VALUE;
+    let logEvent = 
+        mode === MODE_ATTACK 
+            ? LOG_EVENT_PLAYER_ATTACK 
+            : LOG_EVENT_PLAYER_STRONG_ATTACK;
+    // if (mode === MODE_ATTACK) {
+    //     maxDamage = ATTACK_VALUE;
+    //     logEvent = LOG_EVENT_PLAYER_ATTACK
+    // } else if (mode === MODE_STORNG_ATTACK) {
+    //     maxDamage = STRONG_ATTACK_VALUE;
+    //     logEvent = LOG_EVENT_PLAYER_STRONG_ATTACK
+    // }
 
     const damage = dealMonsterDamage(maxDamage);
     currentMonsterHealth -= damage;
