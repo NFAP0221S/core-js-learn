@@ -6,9 +6,17 @@ const STRONG_ATTAK_VALUE = 17;
 const MONSTER_ATTAK_VALUE = 14;
 // 체력 회복 값
 const HEAL_VAlUE = 20;
+// 초기 체력 입력 값
+const enteredValue = prompt('몬스터와 유저의 최대 채력을 설정합니다.', '100')
 
 // 선택한 max life
-let chosenMaxLife = 100;
+let chosenMaxLife = parseInt(enteredValue);
+
+// max life가 NaN이거나 0이랑 같거나 작을경우 초기 값 100으로 설정
+if (isNaN(chosenMaxLife) || chosenMaxLife <= 0) {
+    chosenMaxLife = 100;
+}
+
 // 현재 몬스터 체력
 let currentMonsterHealth = chosenMaxLife;
 // 현재 플레이어 체력
