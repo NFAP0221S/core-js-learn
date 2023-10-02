@@ -45,7 +45,7 @@ function writeToLog(e, val, monsterHealth, playerHealth) {
         finalMonsterHealth: monsterHealth,
         finalPlayerHealth: playerHealth
     };
-    
+
     switch (e) {
         case LOG_EVENT_PLAYER_ATTACK:
             logEntry.target = 'MONSTER';
@@ -212,7 +212,21 @@ function healPlayerHandler() {
 
 // 로그 출력
 function printLogHandler() {
-    console.log(battleLog);
+    for (let i = 0; i < 3; i++) {
+        console.log('----------')
+    }
+    
+    let i = 0;
+    // 배열을 다룰때는 for - of
+    for (const logEntry of battleLog) {
+        console.log(logEntry);
+        console.log(`#${i}`);
+        // key : value 로 이루어진 객체를 다룰 때는 for - in
+        for (const key in logEntry) {
+            console.log(`${key} => ${logEntry[key]}`);
+        }
+        i++;
+    }
 };
 
 attackBtn.addEventListener('click', attackHandler); // 기본 공격 실행
