@@ -15,20 +15,40 @@ const LOG_EVENT_MONSTER_ATTACK = 'MONSTER_ATTACK';
 const LOG_EVENT_PLAYER_HEAL = 'PLAYER_HEAL';
 const LOG_EVENT_GAME_OVER = 'GAME_OVER';
 
-// 초기 체력 입력 값
-const enteredValue = prompt('몬스터와 유저의 최대 채력을 설정합니다.', '100')
 
-// 선택한 max life
-let chosenMaxLife = parseInt(enteredValue);
 // 배틀 로그
 let battleLog = [];
 // 마지막 호출된 로그
 let lastLoggedEntry;
 
-// max life가 NaN이거나 0이랑 같거나 작을경우 초기 값 100으로 설정
-if (isNaN(chosenMaxLife) || chosenMaxLife <= 0) {
-    chosenMaxLife = 100;
+function getMaxLifeValues() {
+    // 초기 체력 입력 값
+    const enteredValue = prompt('몬스터와 유저의 최대 채력을 설정합니다.', '100')
+    // 선택한 max life
+    let parsedValue = parseInt(enteredValue);
+
+    // max life가 NaN이거나 0이랑 같거나 작을경우 초기 값 100으로 설정
+    if (isNaN(parsedValue) || parsedValue <= 0) {
+        throw { message: '입력한 값이 유효하지 않거나 숫자가 아닙니다.'}
+        parsedValue = 100;
+    }
+    return parsedValue;
 }
+
+let chosenMaxLife;
+try {
+    chosenMaxLife = getMaxLifeValues();
+} catch (error) {
+    console.log(error);
+    chosenMaxLife = 100;
+    alert('입력한 값이 유효하지 않기 때문에, 기본 값 100으로 적용되었습니다.')
+    // throw error;
+} 
+// finally는 try - catch에서 catch 스코프에서 에러가 났을 경우 클린업을 하기위한 코드
+// finally {
+
+// }
+
 
 // 현재 몬스터 체력
 let currentMonsterHealth = chosenMaxLife;
@@ -222,11 +242,11 @@ function printLogHandler() {
     outerWhile: do {
         console.log('Outer', j);
         innerFor: for (let k = 0; k < 5; k++) {
-                    if (k === 3) {
-                        // break outerWhile;
-                        continue outerWhile; // 무한루프
-                    }
-                    console.log('Inner', k);
+            if (k === 3) {
+                // break outerWhile;
+                continue outerWhile; // 무한루프
+            }
+            console.log('Inner', k);
         }
         j++;
     } while (j < 3);
