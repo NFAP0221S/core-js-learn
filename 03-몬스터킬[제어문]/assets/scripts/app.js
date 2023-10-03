@@ -22,6 +22,8 @@ const enteredValue = prompt('몬스터와 유저의 최대 채력을 설정합�
 let chosenMaxLife = parseInt(enteredValue);
 // 배틀 로그
 let battleLog = [];
+// 마지막 호출된 로그
+let lastLoggedEntry;
 
 // max life가 NaN이거나 0이랑 같거나 작을경우 초기 값 100으로 설정
 if (isNaN(chosenMaxLife) || chosenMaxLife <= 0) {
@@ -216,14 +218,30 @@ function printLogHandler() {
         console.log('----------')
     }
     
-    let i = 0;
+    let j = 0;
+    outerWhile: do {
+        console.log('Outer', j);
+        innerFor: for (let k = 0; k < 5; k++) {
+                    if (k === 3) {
+                        // break outerWhile;
+                        continue outerWhile; // 무한루프
+                    }
+                    console.log('Inner', k);
+        }
+        j++;
+    } while (j < 3);
+
     // 배열을 다룰때는 for - of
+    let i = 0;
     for (const logEntry of battleLog) {
-        console.log(logEntry);
-        console.log(`#${i}`);
-        // key : value 로 이루어진 객체를 다룰 때는 for - in
-        for (const key in logEntry) {
-            console.log(`${key} => ${logEntry[key]}`);
+        if (!lastLoggedEntry && lastLoggedEntry !== 0 || lastLoggedEntry < i) {
+            console.log(`#${i}`);
+            // key : value 로 이루어진 객체를 다룰 때는 for - in
+            for (const key in logEntry) {
+                console.log(`${key} => ${logEntry[key]}`);
+            }
+            lastLoggedEntry = i;
+            break;
         }
         i++;
     }
